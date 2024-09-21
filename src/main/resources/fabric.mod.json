@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "horseinfo",
+  "version": "${version}",
+  "name": "HorseInfo",
+  "description": "Makes vines shearable to prevent growth",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/horseinfo/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.kiddo.horseinfo.client.HorseinfoClient"
+    ],
+    "main": [
+      "dev.kiddo.horseinfo.Horseinfo"
+    ]
+  },
+  "mixins": [
+    "horseinfo.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

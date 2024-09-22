@@ -10,9 +10,6 @@
   "icon": "assets/horseinfo/icon.png",
   "environment": "client",
   "entrypoints": {
-    "client": [
-      "dev.kiddo.horseinfo.client.HorseinfoClient"
-    ],
     "main": [
       "dev.kiddo.horseinfo.Horseinfo"
     ]

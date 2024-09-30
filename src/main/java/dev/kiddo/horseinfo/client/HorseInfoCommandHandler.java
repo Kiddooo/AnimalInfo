@@ -26,7 +26,7 @@ public class HorseInfoCommandHandler {
 
     static {
         // Horse Pattern Variants
-        entityColorMap.put("whitefield", "Whitefield");
+        entityColorMap.put("white_field", "Whitefield");
         entityColorMap.put("white_dots", "White Spots");
         entityColorMap.put("black_dots", "Black Dots");
         entityColorMap.put("white", "White"); // same for color and pattern
@@ -75,7 +75,7 @@ public class HorseInfoCommandHandler {
                     MutableText healthValue = getHealthValue(horse);
 
 
-
+                    System.out.println(horse.getMarking().name().toLowerCase());
                     MutableText patternVariantValue = Text.literal(entityColorMap.get(horse.getMarking().name().toLowerCase()))
                             .styled(style -> style.withColor(Formatting.LIGHT_PURPLE));
 

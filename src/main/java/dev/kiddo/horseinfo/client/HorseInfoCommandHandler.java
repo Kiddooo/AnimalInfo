@@ -74,8 +74,6 @@ public class HorseInfoCommandHandler {
                     MutableText jumpHeightValue = getJumpHeight(horse);
                     MutableText healthValue = getHealthValue(horse);
 
-
-                    System.out.println(horse.getMarking().name().toLowerCase());
                     MutableText patternVariantValue = Text.literal(entityColorMap.get(horse.getMarking().name().toLowerCase()))
                             .styled(style -> style.withColor(Formatting.LIGHT_PURPLE));
 

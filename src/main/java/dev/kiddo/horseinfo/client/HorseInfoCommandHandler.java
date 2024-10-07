@@ -11,10 +11,7 @@ import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.passive.DonkeyEntity;
-import net.minecraft.entity.passive.HorseEntity;
-import net.minecraft.entity.passive.LlamaEntity;
-import net.minecraft.entity.passive.MuleEntity;
+import net.minecraft.entity.passive.*;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
@@ -54,7 +51,7 @@ public class HorseInfoCommandHandler {
                     MutableText jumpHeightValue = getJumpHeight(donkey);
                     MutableText healthValue = getHealthValue(donkey);
 
-                    MutableText message = formatText(healthValue, jumpHeightValue, movementSpeedValue, null, null, null);
+                    MutableText message = formatText(healthValue, jumpHeightValue, movementSpeedValue, null, null, null, null, null);
 
                     sendInfoMessage(source, "Donkey", message);
                     return 1;
@@ -64,7 +61,7 @@ public class HorseInfoCommandHandler {
                     MutableText jumpHeightValue = getJumpHeight(mule);
                     MutableText healthValue = getHealthValue(mule);
 
-                    MutableText message = formatText(healthValue, jumpHeightValue, movementSpeedValue, null, null, null);
+                    MutableText message = formatText(healthValue, jumpHeightValue, movementSpeedValue, null, null, null, null, null);
 
                     sendInfoMessage(source, "Mule", message);
                     return 1;
@@ -81,23 +78,33 @@ public class HorseInfoCommandHandler {
                     MutableText horseColorValue = Text.literal(entityColorMap.get(horse.getVariant().name().toLowerCase()))
                             .styled(style -> style.withColor(Formatting.BLUE));
 
-                    MutableText message = formatText(healthValue, jumpHeightValue, movementSpeedValue, patternVariantValue, horseColorValue, null);
+                    MutableText message = formatText(healthValue, jumpHeightValue, movementSpeedValue, patternVariantValue, horseColorValue, null, null, null);
 
                     sendInfoMessage(source, "Horse", message);
                     return 1;
 
                 }
                 case LlamaEntity llama -> {
-                    MutableText movementSpeedValue = getMovementSpeed(llama);
-                    MutableText jumpHeightValue = getJumpHeight(llama);
                     MutableText healthValue = getHealthValue(llama);
                     MutableText llamaColorValue = Text.literal(entityColorMap.get(llama.getVariant().name().toLowerCase()))
                             .styled(style -> style.withColor(Formatting.BLUE));
 
                     MutableText llamaStrengthValue = Text.literal(String.valueOf(llama.getStrength())).styled(style -> style.withColor(Formatting.AQUA));
-                    MutableText message = formatText(healthValue, jumpHeightValue, movementSpeedValue, null, llamaColorValue, llamaStrengthValue);
+                    MutableText message = formatText(healthValue, null, null, null, llamaColorValue, llamaStrengthValue, null, null);
 
                     sendInfoMessage(source, "Llama", message);
+                    return 1;
+                }
+                case PandaEntity panda -> {
+                    PandaEntity.Gene mainGene = panda.getMainGene();
+                    PandaEntity.Gene hiddenGene = panda.getHiddenGene();
+                    String mainGeneRecessive = mainGene.isRecessive() ? "(recessive)" : "(dominant)";
+                    String hiddenGeneRecessive = hiddenGene.isRecessive() ? "(recessive)" : "(dominant)";
+                    MutableText mainGeneValue = Text.literal(panda.getMainGene().asString().toLowerCase() + " " + mainGeneRecessive).styled(style -> style.withColor(TextColor.fromRgb(0x05a0aa)));
+                    MutableText hiddenGeneValue = Text.literal(panda.getHiddenGene().asString().toLowerCase() + " " + hiddenGeneRecessive).styled(style -> style.withColor(TextColor.fromRgb(0x05a0aa)));
+
+                    MutableText message = formatText(null, null, null, null, null, null, mainGeneValue, hiddenGeneValue);
+                    sendInfoMessage(source, "Panda", message);
                     return 1;
                 }
                 case null, default -> {
@@ -140,7 +147,7 @@ public class HorseInfoCommandHandler {
         return Text.literal(String.valueOf(entity.getMaxHealth())).styled(style -> style.withColor(Formatting.RED));
     }
 
-    public static MutableText formatText(MutableText healthValue, MutableText jumpHeightValue, MutableText movementSpeedValue, MutableText patternVariantValue, MutableText colorValue, MutableText strengthValue) {
+    public static MutableText formatText(MutableText healthValue, MutableText jumpHeightValue, MutableText movementSpeedValue, MutableText patternVariantValue, MutableText colorValue, MutableText strengthValue, MutableText hiddenGene, MutableText mainGene) {
         MutableText colonChar = Text.literal(": ").styled(style -> style.withColor(Formatting.WHITE));
         MutableText healthMessage = Text.literal("\nHealth").styled(style -> style.withColor(TextColor.fromRgb(0xffca800)));
         MutableText jumpHeightMessage = Text.literal("\nJump Height").styled(style -> style.withColor(TextColor.fromRgb(0xffca800)));
@@ -148,6 +155,8 @@ public class HorseInfoCommandHandler {
         MutableText patternVariantMessage = Text.literal("\nPattern Variant").styled(style -> style.withColor(TextColor.fromRgb(0xffca800)));
         MutableText colorMessage = Text.literal("\nColor").styled(style -> style.withColor(TextColor.fromRgb(0xffca800)));
         MutableText strengthMessage = Text.literal("\nStrength").styled(style -> style.withColor(TextColor.fromRgb(0xffca800)));
+        MutableText hiddenGeneMessage = Text.literal("\nHidden Gene").styled(style -> style.withColor(TextColor.fromRgb(0xffca800)));
+        MutableText mainGeneMessage = Text.literal("\nMain Gene").styled(style -> style.withColor(TextColor.fromRgb(0xffca800)));
 
 
         MutableText message = Text.empty();
@@ -174,6 +183,14 @@ public class HorseInfoCommandHandler {
 
         if (strengthValue != null) {
             message.append(strengthMessage).append(colonChar).append(strengthValue);
+        }
+
+        if (mainGene != null) {
+            message.append(mainGeneMessage).append(colonChar).append(mainGene);
+        }
+
+        if (hiddenGene != null) {
+            message.append(hiddenGeneMessage).append(colonChar).append(hiddenGene);
         }
 
         return message;

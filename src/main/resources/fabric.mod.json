@@ -3,11 +3,11 @@
   "id": "horseinfo",
   "version": "${version}",
   "name": "HorseInfo",
-  "description": "Makes vines shearable to prevent growth",
+  "description": "Adds a simple /horseinfo command to view stats from horses, donkeys, mules and llamas.",
   "authors": [],
   "contact": {},
   "license": "All-Rights-Reserved",
-  "icon": "assets/horseinfo/icon.png",
+  "icon": "assets/horseinfo/icon.webp",
   "environment": "client",
   "entrypoints": {
     "main": [

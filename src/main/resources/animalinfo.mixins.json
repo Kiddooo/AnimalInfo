@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "dev.kiddo.horseinfo.mixin",
+  "package": "dev.kiddo.animalinfo.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
   ],

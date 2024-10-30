@@ -1,5 +1,5 @@
 /* Licensed under the <LICENSE> */
-package dev.kiddo.horseinfo.client;
+package dev.kiddo.animalinfo.client;
 
 import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal;
 
@@ -17,7 +17,7 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
 
-public class HorseInfoCommandHandler {
+public class AnimalInfoCommandHandler {
 
     private static final Map<String, String> entityColorMap = new HashMap<>();
 
@@ -38,7 +38,7 @@ public class HorseInfoCommandHandler {
         entityColorMap.put("creamy", "Creamy");
     }
     public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher) {
-        dispatcher.register(literal("horseinfo").executes(context -> {
+        dispatcher.register(literal("animalinfo").executes(context -> {
             FabricClientCommandSource source = context.getSource();
 
             // Get the entity being looked at
@@ -116,7 +116,7 @@ public class HorseInfoCommandHandler {
     }
 
     private static void sendInvalidEntityMessage(FabricClientCommandSource source) {
-        MutableText message = Text.literal("No valid entity selected or not a horse").styled(style ->
+        MutableText message = Text.literal("No valid entity selected or not an animal").styled(style ->
                 style.withColor(TextColor.fromRgb(0xFF0000)));
         source.sendFeedback(message);
     }
@@ -144,7 +144,10 @@ public class HorseInfoCommandHandler {
     }
 
     public static MutableText getHealthValue(LivingEntity entity) {
-        return Text.literal(String.valueOf(entity.getMaxHealth())).styled(style -> style.withColor(Formatting.RED));
+        DecimalFormat df = new DecimalFormat("#.###");
+        double baseValue = entity.getMaxHealth();
+        String formattedHealth = df.format(baseValue);
+        return Text.literal(formattedHealth).styled(style -> style.withColor(Formatting.RED));
     }
 
     public static MutableText formatText(MutableText healthValue, MutableText jumpHeightValue, MutableText movementSpeedValue, MutableText patternVariantValue, MutableText colorValue, MutableText strengthValue, MutableText hiddenGene, MutableText mainGene) {

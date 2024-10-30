@@ -1,15 +1,15 @@
 /* Licensed under the <LICENSE> */
-package dev.kiddo.horseinfo;
+package dev.kiddo.animalinfo;
 
-import dev.kiddo.horseinfo.client.HorseInfoCommandHandler;
+import dev.kiddo.animalinfo.client.AnimalInfoCommandHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 
-public class Horseinfo implements ModInitializer {
+public class AnimalInfo implements ModInitializer {
 
   @Override
   public void onInitialize() {
     ClientCommandRegistrationCallback.EVENT.register(
-        ((dispatcher, commandRegistryAccess) -> HorseInfoCommandHandler.register(dispatcher)));
+        ((dispatcher, commandRegistryAccess) -> AnimalInfoCommandHandler.register(dispatcher)));
   }
 }

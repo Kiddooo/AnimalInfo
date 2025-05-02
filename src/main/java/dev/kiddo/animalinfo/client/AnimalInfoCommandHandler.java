@@ -75,7 +75,7 @@ public class AnimalInfoCommandHandler {
                             .styled(style -> style.withColor(Formatting.LIGHT_PURPLE));
 
 
-                    MutableText horseColorValue = Text.literal(entityColorMap.get(horse.getVariant().name().toLowerCase()))
+                    MutableText horseColorValue = Text.literal(entityColorMap.get(horse.getHorseColor().name().toLowerCase()))
                             .styled(style -> style.withColor(Formatting.BLUE));
 
                     MutableText message = formatText(healthValue, jumpHeightValue, movementSpeedValue, patternVariantValue, horseColorValue, null, null, null);
@@ -130,14 +130,14 @@ public class AnimalInfoCommandHandler {
 
     public static MutableText getMovementSpeed(LivingEntity entity) {
         DecimalFormat df = new DecimalFormat("#.###");
-        double baseValue = entity.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+        double baseValue = entity.getAttributeBaseValue(EntityAttributes.MOVEMENT_SPEED);
         String formattedSpeed = df.format(baseValue * 42.1629629629629);
         return Text.literal(formattedSpeed).styled(style -> style.withColor(TextColor.fromRgb(0x79BAEC)));
     }
 
     public static MutableText getJumpHeight(LivingEntity entity) {
         DecimalFormat df = new DecimalFormat("#.###");
-        double baseValue = entity.getAttributeBaseValue(EntityAttributes.GENERIC_JUMP_STRENGTH);
+        double baseValue = entity.getAttributeBaseValue(EntityAttributes.JUMP_STRENGTH);
         double convertedValue = -0.1817584952 * baseValue * baseValue * baseValue + 3.689713992 * baseValue * baseValue + 2.128599134 * baseValue - 0.343930367;
         String formattedHeight = df.format(convertedValue);
         return Text.literal(formattedHeight).styled(style -> style.withColor(TextColor.fromRgb(0x4dd676)));

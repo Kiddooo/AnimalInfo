@@ -103,7 +103,7 @@ public class AnimalInfoCommandHandler {
                     MutableText mainGeneValue = Text.literal(panda.getMainGene().asString().toLowerCase() + " " + mainGeneRecessive).styled(style -> style.withColor(TextColor.fromRgb(0x05a0aa)));
                     MutableText hiddenGeneValue = Text.literal(panda.getHiddenGene().asString().toLowerCase() + " " + hiddenGeneRecessive).styled(style -> style.withColor(TextColor.fromRgb(0x05a0aa)));
 
-                    MutableText message = formatText(null, null, null, null, null, null, mainGeneValue, hiddenGeneValue);
+                    MutableText message = formatText(null, null, null, null, null, null, hiddenGeneValue, mainGeneValue);
                     sendInfoMessage(source, "Panda", message);
                     return 1;
                 }
